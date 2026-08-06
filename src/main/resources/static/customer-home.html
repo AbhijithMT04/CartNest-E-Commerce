@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container wide-container">
+    <div class="top-bar">
+      <div>
+        <h1>Customer Home</h1>
+        <p id="welcomeText"></p>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" onclick="goToCart()">View Cart</button>
+        <button class="btn-ghost" onclick="window.location.href='/profile.html'">My Profile</button>
+        <button class="btn-ghost" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div id="shoppingRoot">
+      <button class="btn-primary start-btn" onclick="startShopping()">Start Shopping</button>
+
+      <div id="categorySection" style="display:none;">
+        <h2 class="section-title">Shop by Category</h2>
+        <div id="categoryGrid" class="category-grid"></div>
+      </div>
+
+      <div id="shoppingSection" style="display:none;">
+        <div class="crumb-row">
+          <button class="btn-link" onclick="backToCategories()">&larr; Back to categories</button>
+          <h2 class="section-title inline-title" id="categoryHeading"></h2>
+        </div>
+        <div id="productList" class="product-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/customer.js"></script>
+</body>
+</html>

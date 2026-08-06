@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2 class="page-title">Customer Sign Up</h2>
+    <form id="signupForm">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="email" id="email" placeholder="you@example.com" required />
+      <input type="tel" id="phone" placeholder="Phone Number" required />
+      <input type="text" id="address" placeholder="Address" required />
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button class="btn-primary" type="submit">Register</button>
+    </form>
+    <p id="message" class="form-message"></p>
+    <a class="btn-link" href="/index.html">Back</a>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

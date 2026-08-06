@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Product</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2 class="page-title">Edit Product</h2>
+
+    <form id="editProductForm">
+      <input type="text" id="name" placeholder="Product Name" required />
+      <input type="text" id="description" placeholder="Description" required />
+      <input type="number" id="price" step="0.01" placeholder="Price" required />
+      <input type="number" id="stock" placeholder="Stock" required />
+      <input type="text" id="category" placeholder="Category" required />
+      <input type="text" id="imageUrl" placeholder="Image URL" />
+      <button class="btn-primary" type="submit">Update Product</button>
+    </form>
+
+    <p id="message" class="form-message"></p>
+    <a class="btn-link" href="/all-products-admin.html">Back to Product List</a>
+  </div>
+
+  <script src="/js/admin-products.js"></script>
+</body>
+</html>

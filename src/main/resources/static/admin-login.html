@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2 class="page-title">Admin Login</h2>
+    <form id="adminLoginForm">
+      <input type="text" id="username" placeholder="Admin Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button class="btn-primary" type="submit">Login</button>
+    </form>
+    <p id="message" class="form-message"></p>
+    <a class="btn-link" href="/index.html">Back</a>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

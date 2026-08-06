@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Cart</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container wide-container">
+    <div class="top-bar">
+      <div>
+        <h1>My Cart</h1>
+        <p id="welcomeText"></p>
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" onclick="goBackToShopping()">Back to Shopping</button>
+        <button class="btn-ghost" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div id="cartList"></div>
+
+    <div class="cart-footer">
+      <h3 id="cartTotal"></h3>
+      <button id="checkoutBtn" class="btn-primary" onclick="checkout()">Proceed to Buy</button>
+    </div>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="/js/customer.js"></script>
+</body>
+</html>
