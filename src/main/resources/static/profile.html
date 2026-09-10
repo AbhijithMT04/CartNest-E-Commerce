@@ -3,74 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile</title>
+    <title>My Profile — CartNest</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div class="profile-container">
-        <h2>My Profile</h2>
-
-        <div class="profile-row">
-            <span class="profile-label">Username</span>
-            <span class="profile-value" id="profUsername">Loading...</span>
+    <header class="app-nav">
+      <div class="app-nav-inner">
+        <a class="brand" href="/customer-home.html">
+          <span class="brand-mark">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="28" height="28" rx="8" fill="#2563EB"/>
+              <path d="M9 11.5V9.8a5 5 0 0 1 10 0v1.7" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+              <rect x="6.5" y="11.5" width="15" height="10" rx="2.6" fill="#FFFFFF"/>
+              <circle cx="11.5" cy="16.5" r="1.15" fill="#2563EB"/>
+              <circle cx="16.5" cy="16.5" r="1.15" fill="#2563EB"/>
+            </svg>
+          </span>
+          <span class="brand-name">CartNest</span>
+        </a>
+        <nav class="app-nav-links">
+          <a href="/customer-home.html">Shop</a>
+          <a href="/view-cart.html">Cart</a>
+          <a href="/profile.html" class="active">Profile</a>
+        </nav>
+        <div class="app-nav-user">
+          <span class="user-chip" id="welcomeText"></span>
+          <button class="btn-ghost-on-dark" onclick="logout()">Log out</button>
         </div>
-        <div class="profile-row">
-            <span class="profile-label">Account Role</span>
-            <span class="profile-value" id="profRole">Loading...</span>
+      </div>
+    </header>
+
+    <div class="page">
+      <div class="page-header">
+        <div>
+          <h1>My profile</h1>
+          <p class="subtitle">View and update your account details.</p>
+        </div>
+      </div>
+
+      <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-row">
+                <span class="profile-label">Username</span>
+                <span class="profile-value" id="profUsername">Loading...</span>
+            </div>
+            <div class="profile-row">
+                <span class="profile-label">Account Role</span>
+                <span class="profile-value" id="profRole">Loading...</span>
+            </div>
+
+            <!-- View mode -->
+            <div id="viewMode">
+                <div class="profile-row">
+                    <span class="profile-label">Name</span>
+                    <span class="profile-value" id="profName">Loading...</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Email</span>
+                    <span class="profile-value" id="profEmailView">Loading...</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Phone Number</span>
+                    <span class="profile-value" id="profPhoneView">Loading...</span>
+                </div>
+                <div class="profile-row">
+                    <span class="profile-label">Address</span>
+                    <span class="profile-value" id="profAddressView">Loading...</span>
+                </div>
+                <button class="btn-primary" onclick="enterEditMode()">Edit profile</button>
+            </div>
+
+            <!-- Edit mode -->
+            <div id="editMode" style="display:none;">
+                <div class="profile-edit-section">
+                    <div class="profile-field">
+                        <label class="profile-label" for="profNameInput">Name</label>
+                        <input type="text" id="profNameInput" />
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-label" for="profEmailInput">Email</label>
+                        <input type="email" id="profEmailInput" placeholder="you@example.com" />
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-label" for="profPhoneInput">Phone Number</label>
+                        <input type="tel" id="profPhoneInput" placeholder="e.g. 9876543210" />
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-label" for="profAddressInput">Address</label>
+                        <textarea id="profAddressInput" rows="3" placeholder="Street, city, state, PIN"></textarea>
+                    </div>
+                </div>
+
+                <p id="profileMessage" class="profile-message"></p>
+
+                <button class="btn-primary" onclick="saveProfile()">Save changes</button>
+                <button class="btn-ghost" onclick="exitEditMode()">Cancel</button>
+            </div>
         </div>
 
-        <!-- View mode -->
-        <div id="viewMode">
-            <div class="profile-row">
-                <span class="profile-label">Name</span>
-                <span class="profile-value" id="profName">Loading...</span>
-            </div>
-            <div class="profile-row">
-                <span class="profile-label">Email</span>
-                <span class="profile-value" id="profEmailView">Loading...</span>
-            </div>
-            <div class="profile-row">
-                <span class="profile-label">Phone Number</span>
-                <span class="profile-value" id="profPhoneView">Loading...</span>
-            </div>
-            <div class="profile-row">
-                <span class="profile-label">Address</span>
-                <span class="profile-value" id="profAddressView">Loading...</span>
-            </div>
-            <button class="btn-primary" onclick="enterEditMode()">Edit Profile</button>
-        </div>
-
-        <!-- Edit mode -->
-        <div id="editMode" style="display:none;">
-            <div class="profile-edit-section">
-                <div class="profile-field">
-                    <label class="profile-label" for="profNameInput">Name</label>
-                    <input type="text" id="profNameInput" />
-                </div>
-                <div class="profile-field">
-                    <label class="profile-label" for="profEmailInput">Email</label>
-                    <input type="email" id="profEmailInput" placeholder="you@example.com" />
-                </div>
-                <div class="profile-field">
-                    <label class="profile-label" for="profPhoneInput">Phone Number</label>
-                    <input type="tel" id="profPhoneInput" placeholder="e.g. 9876543210" />
-                </div>
-                <div class="profile-field">
-                    <label class="profile-label" for="profAddressInput">Address</label>
-                    <textarea id="profAddressInput" rows="3" placeholder="Street, city, state, PIN"></textarea>
-                </div>
-            </div>
-
-            <p id="profileMessage" class="profile-message"></p>
-
-            <button class="btn-primary" onclick="saveProfile()">Save Changes</button>
-            <button class="btn-ghost" onclick="exitEditMode()">Cancel</button>
-        </div>
-
-        <button class="btn-ghost" onclick="window.location.href='/customer-home.html'">Back to Store</button>
+        <button class="btn-ghost" style="margin-top:14px; width:100%; box-sizing:border-box;" onclick="window.location.href='/customer-home.html'">Back to store</button>
+      </div>
     </div>
 
     <script src="/js/profile.js"></script>

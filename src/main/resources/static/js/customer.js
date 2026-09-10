@@ -340,7 +340,7 @@ async function checkout() {
       }
 
       alert(verifyResult.message || "Payment successful");
-      window.location.href = "/customer-home.html";
+      window.location.href = "/order-success.html";
     },
     prefill: {
       name: username

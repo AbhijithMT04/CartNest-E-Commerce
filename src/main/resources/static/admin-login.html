@@ -6,19 +6,56 @@
   <title>Admin Login</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h2 class="page-title">Admin Login</h2>
-    <form id="adminLoginForm">
-      <input type="text" id="username" placeholder="Admin Username" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button class="btn-primary" type="submit">Login</button>
-    </form>
-    <p id="message" class="form-message"></p>
-    <a class="btn-link" href="/index.html">Back</a>
+  <div class="auth-shell">
+    <div class="auth-frame">
+      <div class="auth-panel-brand">
+        <a class="brand" href="/index.html">
+          <span class="brand-mark">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="28" height="28" rx="8" fill="#2563EB"/>
+              <path d="M9 11.5V9.8a5 5 0 0 1 10 0v1.7" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+              <rect x="6.5" y="11.5" width="15" height="10" rx="2.6" fill="#FFFFFF"/>
+              <circle cx="11.5" cy="16.5" r="1.15" fill="#2563EB"/>
+              <circle cx="16.5" cy="16.5" r="1.15" fill="#2563EB"/>
+            </svg>
+          </span>
+          <span class="brand-name">CartNest<span class="brand-badge role-admin">Admin</span></span>
+        </a>
+        <h2>Restricted to admin accounts</h2>
+        <p class="lede">This console is gated by role, not just by login — customer tokens are rejected here.</p>
+        <ul class="auth-points">
+          <li><span class="dot"></span>Every request checks the ADMIN role encoded in your token.</li>
+          <li><span class="dot"></span>Manage products: add, edit, and remove catalog items.</li>
+          <li><span class="dot"></span>Wrong panel? Customers sign in from the main login page.</li>
+        </ul>
+      </div>
+
+      <div class="auth-panel-form">
+        <h2>Admin login</h2>
+        <p class="subtitle">Enter your administrator credentials.</p>
+
+        <form id="adminLoginForm">
+          <div class="field">
+            <label for="username">Admin username</label>
+            <input type="text" id="username" placeholder="Your admin username" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Your password" required />
+          </div>
+          <button class="btn-primary" type="submit">Log in</button>
+          <p id="message" class="form-message"></p>
+        </form>
+
+        <p class="auth-footer">
+          <a class="btn-link" href="/index.html">&larr; Back to CartNest</a>
+        </p>
+      </div>
+    </div>
   </div>
 
   <script src="/js/auth.js"></script>

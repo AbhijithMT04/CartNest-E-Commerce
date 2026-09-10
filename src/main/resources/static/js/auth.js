@@ -21,8 +21,10 @@ async function registerUser(event) {
 
   const result = await response.json().catch(() => ({}));
 
-  document.getElementById("message").innerText =
-    result.message || "Registration completed";
+  const messageEl = document.getElementById("message");
+  messageEl.innerText = result.message || "Registration completed";
+  messageEl.classList.remove("success", "error");
+  messageEl.classList.add(response.ok ? "success" : "error");
 
   if (response.ok) {
     setTimeout(() => {
@@ -50,7 +52,10 @@ async function loginUser(event, isAdminLogin = false) {
   const result = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    document.getElementById("message").innerText = "Invalid credentials";
+    const messageEl = document.getElementById("message");
+    messageEl.innerText = "Invalid credentials";
+    messageEl.classList.remove("success");
+    messageEl.classList.add("error");
     return;
   }
 

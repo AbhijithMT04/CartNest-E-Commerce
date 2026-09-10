@@ -4,6 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
 });
 
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+    window.location.replace("/index.html");
+}
+
 async function loadUserProfile() {
     const token = localStorage.getItem("token");
 
@@ -27,6 +34,11 @@ async function loadUserProfile() {
 
     const data = await response.json();
     currentProfile = data;
+
+    const welcomeEl = document.getElementById("welcomeText");
+    if (welcomeEl) {
+        welcomeEl.innerText = `Welcome, ${data.username}`;
+    }
 
     document.getElementById("profUsername").innerText = data.username;
     document.getElementById("profRole").innerText = data.role;

@@ -38,32 +38,27 @@ public class SecurityConfig {
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authorizeHttpRequests(auth -> auth
-            	    .requestMatchers(
-            	            "/", "/index.html",
-            	            "/signup.html", "/login.html", "/admin-login.html",
-            	            "/customer-home.html", "/view-cart.html","/profile.html",
-            	            "/admin-home.html",
-            	            "/add-product.html", "/all-products-admin.html",
-            	            "/edit-product.html", "/view-product-admin.html",
-            	            "/css/**", "/js/**",
-            	            "/error"
-            	    ).permitAll()
-            	    .requestMatchers("/auth/**", "/hello").permitAll()
-//            	    .requestMatchers("/customer/cart/**").hasRole("USER")
-            	    .requestMatchers("/customer/cart", "/customer/cart/**")
-            	    .hasRole("USER")
-            	    .requestMatchers("/customer/payment/**").hasRole("USER")
-            	    .requestMatchers("/customer/profile").hasRole("USER")
-            	    .requestMatchers("/products/**").hasAnyRole("USER", "ADMIN")
-            	    .requestMatchers("/admin/**").hasRole("ADMIN")
-            	    .requestMatchers("/customer/**").hasAnyRole("USER", "ADMIN")
-            	    .anyRequest().authenticated()
-            	)
+                .requestMatchers(
+                    "/", "/index.html",
+                    "/signup.html", "/login.html", "/admin-login.html",
+                    "/customer-home.html", "/view-cart.html", "/profile.html",
+                    "/admin-home.html", "/order-success.html",
+                    "/add-product.html", "/all-products-admin.html",
+                    "/edit-product.html", "/view-product-admin.html",
+                    "/css/**", "/js/**",
+                    "/error"
+                ).permitAll()
+                .requestMatchers("/auth/**", "/hello").permitAll()
+                .requestMatchers("/customer/cart", "/customer/cart/**").hasRole("USER")
+                .requestMatchers("/customer/payment/**").hasRole("USER")
+                .requestMatchers("/customer/profile").hasRole("USER")
+                .requestMatchers("/products/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/customer/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
+            )
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//            .authorizeHttpRequests(auth -> auth
-//            	    .anyRequest().permitAll()
-//            	)
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable());
 

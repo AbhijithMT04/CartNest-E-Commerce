@@ -2,6 +2,13 @@ function getToken() {
   return localStorage.getItem("token");
 }
 
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
+  window.location.href = "/index.html";
+}
+
 function ensureAdminAccess() {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -11,12 +18,26 @@ function ensureAdminAccess() {
     return false;
   }
 
+  const welcomeEl = document.getElementById("welcomeText");
+  if (welcomeEl) {
+    const username = localStorage.getItem("username");
+    welcomeEl.innerText = `Welcome, ${username}`;
+  }
+
   return true;
 }
 
 function getProductIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get("id");
+}
+
+function setMessage(text, isError) {
+  const messageEl = document.getElementById("message");
+  if (!messageEl) return;
+  messageEl.innerText = text;
+  messageEl.classList.remove("success", "error");
+  messageEl.classList.add(isError ? "error" : "success");
 }
 
 async function addProduct(event) {
@@ -41,11 +62,11 @@ async function addProduct(event) {
   });
 
   if (!response.ok) {
-    document.getElementById("message").innerText = "Failed to add product";
+    setMessage("Failed to add product", true);
     return;
   }
 
-  document.getElementById("message").innerText = "Product added successfully";
+  setMessage("Product added successfully", false);
 
   setTimeout(() => {
     window.location.href = "/all-products-admin.html";
@@ -68,7 +89,7 @@ async function loadAllProducts() {
   const productList = document.getElementById("productList");
 
   if (!products.length) {
-    productList.innerHTML = "<p>No products found</p>";
+    productList.innerHTML = "<p class='empty-state'>No products found</p>";
     return;
   }
 
@@ -188,11 +209,11 @@ async function updateProduct(event) {
   });
 
   if (!response.ok) {
-    document.getElementById("message").innerText = "Failed to update product";
+    setMessage("Failed to update product", true);
     return;
   }
 
-  document.getElementById("message").innerText = "Product updated successfully";
+  setMessage("Product updated successfully", false);
 
   setTimeout(() => {
     window.location.href = "/all-products-admin.html";

@@ -6,25 +6,76 @@
   <title>Edit Product</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h2 class="page-title">Edit Product</h2>
+  <header class="app-nav">
+    <div class="app-nav-inner">
+      <a class="brand" href="/admin-home.html">
+        <span class="brand-mark">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="28" height="28" rx="8" fill="#2563EB"/>
+            <path d="M9 11.5V9.8a5 5 0 0 1 10 0v1.7" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+            <rect x="6.5" y="11.5" width="15" height="10" rx="2.6" fill="#FFFFFF"/>
+            <circle cx="11.5" cy="16.5" r="1.15" fill="#2563EB"/>
+            <circle cx="16.5" cy="16.5" r="1.15" fill="#2563EB"/>
+          </svg>
+        </span>
+        <span class="brand-name">CartNest<span class="brand-badge role-admin">Admin</span></span>
+      </a>
+      <nav class="app-nav-links">
+        <a href="/admin-home.html">Dashboard</a>
+        <a href="/all-products-admin.html" class="active">Products</a>
+      </nav>
+      <div class="app-nav-user">
+        <span class="user-chip" id="welcomeText"></span>
+        <button class="btn-ghost-on-dark" onclick="logout()">Log out</button>
+      </div>
+    </div>
+  </header>
 
-    <form id="editProductForm">
-      <input type="text" id="name" placeholder="Product Name" required />
-      <input type="text" id="description" placeholder="Description" required />
-      <input type="number" id="price" step="0.01" placeholder="Price" required />
-      <input type="number" id="stock" placeholder="Stock" required />
-      <input type="text" id="category" placeholder="Category" required />
-      <input type="text" id="imageUrl" placeholder="Image URL" />
-      <button class="btn-primary" type="submit">Update Product</button>
-    </form>
+  <div class="page">
+    <div class="page-header">
+      <div>
+        <h1>Edit product</h1>
+        <p class="subtitle">Update the details and save your changes.</p>
+      </div>
+      <div class="page-header-actions">
+        <a class="btn-ghost" href="/all-products-admin.html">Back to products</a>
+      </div>
+    </div>
 
-    <p id="message" class="form-message"></p>
-    <a class="btn-link" href="/all-products-admin.html">Back to Product List</a>
+    <div class="container" style="margin:0; width:100%; max-width:520px; text-align:left;">
+      <form id="editProductForm">
+        <div class="field">
+          <label for="name">Product name</label>
+          <input type="text" id="name" placeholder="Product Name" required />
+        </div>
+        <div class="field">
+          <label for="description">Description</label>
+          <input type="text" id="description" placeholder="Description" required />
+        </div>
+        <div class="field">
+          <label for="price">Price (₹)</label>
+          <input type="number" id="price" step="0.01" placeholder="Price" required />
+        </div>
+        <div class="field">
+          <label for="stock">Stock quantity</label>
+          <input type="number" id="stock" placeholder="Stock" required />
+        </div>
+        <div class="field">
+          <label for="category">Category</label>
+          <input type="text" id="category" placeholder="Category" required />
+        </div>
+        <div class="field">
+          <label for="imageUrl">Image URL</label>
+          <input type="text" id="imageUrl" placeholder="Image URL" />
+        </div>
+        <button class="btn-primary" type="submit">Update product</button>
+        <p id="message" class="form-message"></p>
+      </form>
+    </div>
   </div>
 
   <script src="/js/admin-products.js"></script>

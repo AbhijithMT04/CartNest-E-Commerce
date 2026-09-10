@@ -3,31 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Home</title>
+  <title>Shop — CartNest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="container wide-container">
-    <div class="top-bar">
-      <div>
-        <h1>Customer Home</h1>
-        <p id="welcomeText"></p>
+  <header class="app-nav">
+    <div class="app-nav-inner">
+      <a class="brand" href="/customer-home.html">
+        <span class="brand-mark">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="28" height="28" rx="8" fill="#2563EB"/>
+            <path d="M9 11.5V9.8a5 5 0 0 1 10 0v1.7" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+            <rect x="6.5" y="11.5" width="15" height="10" rx="2.6" fill="#FFFFFF"/>
+            <circle cx="11.5" cy="16.5" r="1.15" fill="#2563EB"/>
+            <circle cx="16.5" cy="16.5" r="1.15" fill="#2563EB"/>
+          </svg>
+        </span>
+        <span class="brand-name">CartNest</span>
+      </a>
+      <nav class="app-nav-links">
+        <a href="/customer-home.html" class="active">Shop</a>
+        <a href="/view-cart.html">Cart</a>
+        <a href="/profile.html">Profile</a>
+      </nav>
+      <div class="app-nav-user">
+        <span class="user-chip" id="welcomeText"></span>
+        <button class="btn-ghost-on-dark" onclick="logout()">Log out</button>
       </div>
-      <div class="actions">
-        <button class="btn-ghost" onclick="goToCart()">View Cart</button>
-        <button class="btn-ghost" onclick="window.location.href='/profile.html'">My Profile</button>
-        <button class="btn-ghost" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <div class="page">
+    <div class="page-header">
+      <div>
+        <h1>Shop by category</h1>
+        <p class="subtitle">Browse the catalog and add items to your cart.</p>
       </div>
     </div>
 
     <div id="shoppingRoot">
-      <button class="btn-primary start-btn" onclick="startShopping()">Start Shopping</button>
+      <button class="btn-primary start-btn" onclick="startShopping()">Start shopping</button>
 
       <div id="categorySection" style="display:none;">
-        <h2 class="section-title">Shop by Category</h2>
+        <h2 class="section-title">Shop by category</h2>
         <div id="categoryGrid" class="category-grid"></div>
       </div>
 
