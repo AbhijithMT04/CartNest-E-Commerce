@@ -13,15 +13,26 @@ function ensureCustomer() {
     welcome.innerText = `Welcome, ${username}`;
   }
 
+  const avatarEl = document.getElementById("avatarInitial");
+  if (avatarEl) {
+    avatarEl.innerText = (username || "?").charAt(0).toUpperCase();
+  }
+
+  const chipName = document.getElementById("chipUsername");
+  if (chipName) {
+    chipName.innerText = username || "";
+  }
+
+  const chipRole = document.getElementById("chipRole");
+  if (chipRole) {
+    chipRole.innerText = `${role} — View profile`;
+  }
+
   return true;
 }
 
 function getToken() {
   return localStorage.getItem("token");
-}
-
-function startShopping() {
-  loadProducts();
 }
 
 function goToCart() {
@@ -33,6 +44,7 @@ function goBackToShopping() {
 }
 
 let allProducts = [];
+let selectedCategory = "All";
 
 async function loadProducts() {
   const response = await fetch("/products", {
@@ -51,85 +63,57 @@ async function loadProducts() {
     return;
   }
 
-  const products = await response.json();
-  allProducts = products;
-
-  renderCategories();
+  allProducts = await response.json();
+  renderCategoryPills();
+  applyFilters();
 }
 
-function categoryIcon(category) {
-  const key = (category || "").toLowerCase();
-  const map = {
-    electronics: "💻", mobile: "📱", phones: "📱",
-	skincare: "🧴", fashion: "👕", clothing: "👕", 
-	apparel: "👕", footwear: "👟", shoes: "👟",
-    grocery: "🛒", food: "🍽️", beauty: "💄",
-    home: "🏠", furniture: "🛋️", kitchen: "🍳",
-    books: "📚", stationery: "📚", toys: "🧸",
-    sports: "🏸", fitness: "🏋️",
-    jewelery: "💍", jewellery: "💍",
-    accessories: "🎒", automotive: "🚗", appliances: "🔌"
-  };
-  for (const word in map) {
-    if (key.includes(word)) return map[word];
-  }
-  return "🛍️";
+function renderCategoryPills() {
+  const pillsEl = document.getElementById("categoryPills");
+  if (!pillsEl) return;
+
+  const rest = [...new Set(allProducts.map(p => p.category || "Uncategorized"))].sort();
+  const categories = ["All", ...rest];
+
+  pillsEl.innerHTML = categories.map(cat => `
+    <button type="button" class="category-pill${cat === selectedCategory ? " active" : ""}" onclick="selectCategoryPill('${cat.replace(/'/g, "\\'")}')">${cat}</button>
+  `).join("");
 }
 
-function renderCategories() {
-  const categorySection = document.getElementById("categorySection");
-  const shoppingSection = document.getElementById("shoppingSection");
-  const categoryGrid = document.getElementById("categoryGrid");
+function selectCategoryPill(category) {
+  selectedCategory = category;
+  renderCategoryPills();
+  applyFilters();
+}
 
-  shoppingSection.style.display = "none";
-  categorySection.style.display = "block";
+function applyFilters() {
+  const searchInput = document.getElementById("searchInput");
+  const search = (searchInput ? searchInput.value : "").trim().toLowerCase();
 
-  if (!allProducts.length) {
-    categoryGrid.innerHTML = "<p class='empty-state'>No products found</p>";
-    return;
+  let filtered = allProducts;
+
+  if (selectedCategory !== "All") {
+    filtered = filtered.filter(p => (p.category || "Uncategorized") === selectedCategory);
   }
 
-  const counts = {};
-  allProducts.forEach(product => {
-    const cat = product.category || "Uncategorized";
-    counts[cat] = (counts[cat] || 0) + 1;
-  });
+  if (search) {
+    filtered = filtered.filter(p => (p.name || "").toLowerCase().includes(search));
+  }
 
-  const categories = Object.keys(counts).sort();
-
-  let html = "";
-  categories.forEach(category => {
-    html += `
-      <div class="category-card" onclick="selectCategory('${category.replace(/'/g, "\\'")}')">
-        <div class="category-icon">${categoryIcon(category)}</div>
-        <div class="category-name">${category}</div>
-        <div class="category-count">${counts[category]} item${counts[category] === 1 ? "" : "s"}</div>
-      </div>
-    `;
-  });
-
-  categoryGrid.innerHTML = html;
+  renderProductGrid(filtered);
 }
 
-function selectCategory(category) {
-  const categorySection = document.getElementById("categorySection");
-  const shoppingSection = document.getElementById("shoppingSection");
+function renderProductGrid(products) {
   const productList = document.getElementById("productList");
-  const categoryHeading = document.getElementById("categoryHeading");
+  if (!productList) return;
 
-  categorySection.style.display = "none";
-  shoppingSection.style.display = "block";
-  categoryHeading.innerText = category;
-
-  const filtered = allProducts.filter(p => (p.category || "Uncategorized") === category);
-
-  if (!filtered.length) {
-    productList.innerHTML = "<p class='empty-state'>No products found in this category</p>";
+  if (!products.length) {
+    productList.innerHTML = "<p class='empty-state'>No products found</p>";
     return;
   }
 
   let html = "";
-  filtered.forEach(product => {
+  products.forEach(product => {
     html += `
       <div class="product-card">
         <img src="${product.imageUrl || ''}" alt="${product.name}" class="product-card-image" />
@@ -149,9 +133,6 @@ function selectCategory(category) {
   productList.innerHTML = html;
 }
 
-function backToCategories() {
-  renderCategories();
-}
 async function addToCart(productId) {
   const response = await fetch("/customer/cart", {
     method: "POST",
@@ -181,6 +162,25 @@ async function addToCart(productId) {
 
   const result = await response.json().catch(() => ({}));
   alert(result.message || "Product added to cart");
+  updateCartBadge();
+}
+
+async function updateCartBadge() {
+  const badgeEl = document.getElementById("cartBadge");
+  if (!badgeEl) return;
+
+  const response = await fetch("/customer/cart", {
+    headers: {
+      "Authorization": "Bearer " + getToken()
+    }
+  });
+
+  if (!response.ok) return;
+
+  const cart = await response.json().catch(() => null);
+  if (!cart) return;
+
+  badgeEl.innerText = cart.items ? cart.items.length : 0;
 }
 
 async function loadCart() {
@@ -339,7 +339,12 @@ async function checkout() {
         return;
       }
 
-      alert(verifyResult.message || "Payment successful");
+      localStorage.setItem("lastOrder", JSON.stringify({
+        orderId: orderData.localOrderId || orderData.razorpayOrderId,
+        amount: orderData.amount,
+        paymentId: response.razorpay_payment_id
+      }));
+
       window.location.href = "/order-success.html";
     },
     prefill: {
@@ -371,5 +376,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (document.getElementById("cartList")) {
     loadCart();
+  }
+
+  if (document.getElementById("productList") && document.getElementById("categoryPills")) {
+    loadProducts();
+  }
+
+  if (document.getElementById("cartBadge")) {
+    updateCartBadge();
   }
 });

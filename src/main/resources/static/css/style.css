@@ -48,7 +48,8 @@
 
 body {
   font-family: var(--font-body);
-  background: var(--white);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 55%, #F1F5F9 100%);
+  background-attachment: fixed;
   margin: 0;
   padding: 0;
   color: var(--text);
@@ -477,7 +478,10 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  background: var(--ice);
+  background:
+    radial-gradient(circle at 15% 15%, rgba(37, 99, 235, 0.08), transparent 55%),
+    radial-gradient(circle at 85% 85%, rgba(15, 23, 42, 0.05), transparent 55%),
+    var(--ice);
   padding: 48px 24px;
 }
 
@@ -726,6 +730,157 @@ input:focus, textarea:focus, select:focus {
   color: var(--text);
   font-weight: 600;
   text-align: right;
+}
+
+/* ==========================================================================
+   Shop header (customer home) — logo, search, cart badge, profile chip, pills
+   ========================================================================== */
+.shop-nav {
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.shop-nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.shop-nav .brand-name { color: var(--white); }
+
+.shop-search {
+  flex: 1;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ice);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 16px;
+}
+
+.shop-search input {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  flex: 1;
+}
+
+.shop-search input:focus { outline: none; box-shadow: none; }
+
+.shop-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+}
+
+.cart-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  transition: background 0.15s ease;
+}
+
+.cart-btn:hover { background: var(--ice); }
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--cobalt);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+.profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 5px 14px 5px 5px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  text-decoration: none;
+  margin: 0;
+  background: var(--white);
+}
+
+.profile-chip:hover { background: var(--ice); }
+
+.avatar-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--cobalt);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.profile-chip-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.profile-chip-name { font-size: 13px; font-weight: 700; color: var(--navy); }
+.profile-chip-role { font-size: 11px; color: var(--text-muted); }
+
+.category-pills {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  
+}
+
+.category-pill {
+  background: var(--white);
+  border: 1px solid var(--border-strong);
+  color: var(--slate);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  margin: 0;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.category-pill:hover { background: var(--ice); }
+
+.category-pill.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
 }
 
 /* ==========================================================================
@@ -1016,6 +1171,34 @@ input:focus, textarea:focus, select:focus {
   box-sizing: border-box;
   margin: 8px 0 0 0;
   text-align: center;
+}
+
+.success-card-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.success-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--success-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.success-card-header h2 { margin-bottom: 6px; }
+
+.address-card {
+  background: var(--ice);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
 }
 
 /* ==========================================================================
